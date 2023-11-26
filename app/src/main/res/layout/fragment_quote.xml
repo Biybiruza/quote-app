@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuoteFragment"
-    android:background="#c5c5c5"
+    android:background="#ededed"
     android:id="@+id/fragment">
 
     <androidx.viewpager2.widget.ViewPager2

@@ -73,20 +73,6 @@ public class QuoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-//        Quote.quoteList().add(new Quote(
-//                "",
-//                " ",
-//                ""
-//        ));
-//        list = Quote.quoteList();
-//        adapter = new QuoteAdapter(list);
-//        binding.viewpager.setAdapter(adapter);
-
-//        Random random = new Random();
-
-//        setViewpager(random);
-
         if (checkStoragePermissions()) {
             Quote.quoteList().add(new Quote(
                     "",
@@ -106,7 +92,6 @@ public class QuoteFragment extends Fragment {
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.camera_shutter_click);
 
-//        verifystoragepermissions(requireActivity());
         binding.ibScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,12 +127,15 @@ public class QuoteFragment extends Fragment {
         //Android is 11 (R) or above
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             try {
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
                 Uri uri = Uri.fromParts("package", requireActivity().getPackageName(), null);
                 intent.setData(uri);
 
-                storageActivityResultLauncher.launch(intent);
+                storageActivityResultLauncher.launch(intent);*/
+
+                showDialog();
+
             }catch (Exception e){
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
@@ -165,6 +153,30 @@ public class QuoteFragment extends Fragment {
             );
         }
 
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
+        dialog.setTitle("Attention");
+        dialog.setMessage("You must go to the permission window to read and edit files and use the program!! \nDo you agree?")
+                .setPositiveButton("Awa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                        Uri uri = Uri.fromParts("package", requireActivity().getPackageName(), null);
+                        intent.setData(uri);
+
+                        storageActivityResultLauncher.launch(intent);
+                    }
+                })
+                .setNegativeButton("Yaq", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        dialog.show();
     }
 
     private ActivityResultLauncher<Intent> storageActivityResultLauncher =

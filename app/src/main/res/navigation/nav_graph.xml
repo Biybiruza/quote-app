@@ -3,11 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/quoteFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/quoteFragment"
         android:name="com.biybiruza.quoteapp.QuoteFragment"
         android:label="fragment_quote"
         tools:layout="@layout/fragment_quote" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.biybiruza.quoteapp.ui.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_quoteFragment"
+            app:destination="@id/quoteFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
